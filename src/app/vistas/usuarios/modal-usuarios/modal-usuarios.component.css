@@ -1,0 +1,14 @@
+.mat-dialog-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.mat-form-field {
+  margin-bottom: 20px; /* Ajusta el espaciado entre los campos */
+  width: 100%; /* Ajusta el ancho del campo */
+}
+
+/* Ajusta el tamaño del texto dentro del campo */
+.mat-form-field-wrapper .mat-form-field-flex {
+  font-size: 20px;
+}

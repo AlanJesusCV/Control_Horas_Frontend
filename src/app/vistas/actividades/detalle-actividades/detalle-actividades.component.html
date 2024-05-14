@@ -1,0 +1,152 @@
+<div class="custom-card mat-elevation-z8">
+  <div class="h-100">
+    <div class="h-146">
+      <div class="card-header">
+        <h2>Gestión de Actividades</h2>
+      </div>
+
+      <div *ngIf="showSpinner" class="spinner-overlay">
+        <div class="spinner"></div>
+      </div>
+      <div class="div-buscador">
+        <div class="filtro-buscador">
+          <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Filtrar </mat-label>
+            <input
+              matInput
+              (keyup)="applyFilter($event)"
+              placeholder="Buscar"
+            />
+          </mat-form-field>
+        </div>
+        <div class="ml8">
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="openRegisterModal()"
+            [disabled]="!validarFechaAnterior(fechaActivity)"
+          >
+            Registrar Actividad
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="div-table">
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        class="mat-elevation-z8"
+        matSort
+        matPaginator
+        style="overflow: auto"
+      >
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>ID</th>
+          <td mat-cell *matCellDef="let activity">
+            {{ activity.id_actividad }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="nombre_actividad">
+          <th mat-header-cell *matHeaderCellDef>Nombre</th>
+          <td mat-cell *matCellDef="let activity">
+            {{ activity.nombre_actividad }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="horas_actividad">
+          <th mat-header-cell *matHeaderCellDef>Horas</th>
+          <td mat-cell *matCellDef="let activity">
+            {{ activity.horas_actividad }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="tipo_actividad">
+          <th mat-header-cell *matHeaderCellDef>Tipo</th>
+          <td mat-cell *matCellDef="let activity">
+            {{ activity.tipo_actividad }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="validada">
+          <th mat-header-cell *matHeaderCellDef>Estatus</th>
+          <td mat-cell *matCellDef="let activity">
+            <span *ngIf="activity.validada === true">Validada</span>
+            <span *ngIf="activity.validada === false">Rechazada</span>
+            <span *ngIf="activity.validada === null">Pendiente</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="agregado_por">
+          <th mat-header-cell *matHeaderCellDef>Agregado Por</th>
+          <td mat-cell *matCellDef="let activity">
+            {{ activity.agregado_por }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="validado_por" >
+          <th mat-header-cell *matHeaderCellDef>Validado Por</th>
+          <td mat-cell *matCellDef="let activity" >
+            {{ activity.user_numero_empleado == '' ? 'N/A':  activity.user_numero_empleado}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="creacion">
+          <th mat-header-cell *matHeaderCellDef>Fecha de Creación</th>
+          <td mat-cell *matCellDef="let activity">{{ activity.created_at | date:'Y-MM-dd' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Acciones</th>
+          <td mat-cell *matCellDef="let activity">
+            <button
+              mat-icon-button
+              *ngIf="activity.validada != true && activity.id_usuario_asignado == this.idUserSession"
+              (click)="openEditModal(activity)"
+              matTooltip="Editar Actividad"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              *ngIf="activity.validada == null && activity.id_usuario_asignado == this.idUserSession"
+              (click)="deleteActivity(activity.id_actividad)"
+              matTooltip="Eliminar Actividad"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              *ngIf="validateProfile(activity)"
+              (click)="checkOrRejectActivity(true,activity)"
+              matTooltip="Aprobar Actividad"
+            >
+              <mat-icon>check</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              *ngIf="validateProfile(activity)"
+              (click)="checkOrRejectActivity(false,activity)"
+              matTooltip="Rechazar Actividad"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
+            <button mat-icon-button matTooltip="Ver Descripción" (click)="detailDescription(activity.descripcion)">
+              <mat-icon>info</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+    <mat-paginator
+      [length]="totalItems"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="pageSizeOptions"
+      (page)="pageEvent($event)"
+    ></mat-paginator>
+  </div>
+</div>

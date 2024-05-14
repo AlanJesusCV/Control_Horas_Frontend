@@ -1,0 +1,58 @@
+<h2 mat-dialog-title>{{ isEditMode ? "Editar" : "Registrar" }}</h2>
+<mat-dialog-content>
+  <mat-form-field class="w-100">
+    <input
+      matInput
+      placeholder="Nombre"
+      required
+      [formControl]="nombreFormControl"
+    />
+    <mat-error *ngIf="nombreFormControl.hasError('required')"
+      >Nombre es <strong>Requerido</strong></mat-error
+    >
+  </mat-form-field>
+  <mat-form-field class="w-100">
+    <textarea
+      matInput
+      placeholder="Descripción"
+      required
+      [formControl]="descripcionFormControl"
+      type="text"
+    ></textarea>
+    <mat-error *ngIf="descripcionFormControl.hasError('required')"
+      >Descripción es <strong>Requerido</strong></mat-error
+    >
+  </mat-form-field>
+  <mat-form-field class="w-100">
+    <mat-label>Tipo de Actividad</mat-label>
+    <mat-select
+      placeholder="Selecciona el tipo de usuario"
+      [formControl]="tipoActividadFormControl"
+      required
+    >
+      <mat-option value="Directa">Directa</mat-option>
+      <mat-option value="Indirecta">Indirecta</mat-option>
+    </mat-select>
+    <mat-error *ngIf="tipoActividadFormControl.hasError('required')"
+      >Tipo es <strong>Requerido</strong></mat-error
+    >
+  </mat-form-field>
+  <mat-form-field class="w-100">
+    <mat-label>Horas Actividad</mat-label>
+    <mat-select [formControl]="horasActividadFormControl">
+      <mat-option *ngFor="let option of horasActividadOptions" [value]="option.value">
+        {{ option.label }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="horasActividadFormControl.hasError('required')">
+      Horas actividad <strong>Requerido</strong>
+    </mat-error>
+  </mat-form-field>
+  <!-- Otros campos para registrar o editar, mostrar u ocultar según sea necesario -->
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancelClick()">Cancelar</button>
+  <button mat-button (click)="onSaveClick()" [disabled]="!isValidForm()">
+    {{ isEditMode ? "Guardar" : "Registrar" }}
+  </button>
+</mat-dialog-actions>

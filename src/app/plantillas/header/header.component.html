@@ -1,0 +1,9 @@
+<mat-toolbar color="primary" class="header-toolbar">
+  <span>ATC Minimalista</span>
+  <span class="fill-remaining-space"></span>
+  <button mat-button routerLink="/">Inicio</button>
+  <button mat-button *ngIf="isLoggedIn() && this.getUserRole()" routerLink="/usuarios">Usuarios</button>
+  <button mat-button *ngIf="isLoggedIn() " routerLink="/actividades">Actividades</button>
+  <button mat-button *ngIf="!isLoggedIn()" routerLink="/login">Iniciar Sesión</button>
+  <button mat-button *ngIf="isLoggedIn()" (click)="logout()" routerLink="/login">Cerrar Sesión</button>
+</mat-toolbar>
