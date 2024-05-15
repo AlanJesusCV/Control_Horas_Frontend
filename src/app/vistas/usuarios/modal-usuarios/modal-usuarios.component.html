@@ -1,6 +1,6 @@
-<h2 mat-dialog-title>{{ isEditMode ? "Editar" : "Registrar" }}</h2>
+<h2 mat-dialog-title>{{ isEditMode ? "Editar" : "Registrar" }} Usuario</h2>
 <mat-dialog-content>
-  <mat-form-field>
+  <mat-form-field class="w-100">
     <input
       matInput
       placeholder="Nombre"
@@ -11,7 +11,7 @@
     >Nombre es <strong>Requerido</strong></mat-error
   >
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field class="w-100">
     <input
       matInput
       placeholder="Apellidos"
@@ -22,8 +22,8 @@
       >Apellidos es <strong>Requerido</strong></mat-error
     >
   </mat-form-field>
-  <mat-form-field>
-    <mat-label>Tipo de usuario</mat-label>
+  <mat-form-field class="w-100">
+    <mat-label>Tipo de Usuario</mat-label>
     <mat-select
       placeholder="Selecciona el tipo de usuario"
       name="tipo"
@@ -38,11 +38,11 @@
       >Tipo es <strong>Requerido</strong></mat-error
     >
   </mat-form-field>
-  <mat-form-field *ngIf="!isEditMode">
+  <mat-form-field *ngIf="!isEditMode" class="w-100">
     <input
       type="number"
       matInput
-      placeholder="Numero de empleado"
+      placeholder="Numero de Empleado"
       [formControl]="numeroEmpleadoFormControl"
       required
     />
@@ -50,7 +50,7 @@
       Numero Empleado <strong>Requerido</strong></mat-error
     >
   </mat-form-field>
-  <mat-form-field *ngIf="!isEditMode">
+  <mat-form-field *ngIf="!isEditMode" class="w-100">
     <input
       type="email"
       matInput
@@ -64,19 +64,20 @@
     <mat-error>Correo Electronico <strong>Requerido</strong></mat-error>
     }
   </mat-form-field>
-  <mat-form-field *ngIf="!isEditMode">
+  <mat-form-field *ngIf="!isEditMode" class="w-100">
     <input
       type="password"
       matInput
       placeholder="Contraseña"
-      required
       [formControl]="passwordFormControl"
     />
     <mat-error *ngIf="passwordFormControl.hasError('required')">
-      Numero Empleado <strong>Requerido</strong></mat-error
-    >
+      La contraseña es requerida
+    </mat-error>
+    <mat-error *ngIf="passwordFormControl.hasError('minlength')">
+      La contraseña debe tener al menos 8 caracteres
+    </mat-error>
   </mat-form-field>
-  <!-- Otros campos para registrar o editar, mostrar u ocultar según sea necesario -->
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button (click)="onCancelClick()">Cancelar</button>

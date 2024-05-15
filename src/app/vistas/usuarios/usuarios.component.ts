@@ -150,11 +150,7 @@ export class UsuariosComponent implements  AfterViewInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       this.showSpinner = true;
-      if (result == false) {
-        this.loadData();
-        this.showSpinner = false;
-      } else {
-        console.log(result);
+      if (result == true) {
         this.userService.disableOrEnableUser(id).subscribe(
           (response: any) => {
             if (response.error) {
@@ -173,6 +169,9 @@ export class UsuariosComponent implements  AfterViewInit {
             this.alertService.showAlert('Error al llamar al servicio', true); // Mostrar alerta de error
           }
         );
+      }else{
+        this.loadData();
+        this.showSpinner = false;
       }
       // Aquí puedes manejar el resultado del modal para el registro
     });

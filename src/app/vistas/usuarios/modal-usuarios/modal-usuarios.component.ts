@@ -14,7 +14,7 @@ export class ModalUsuariosComponent {
     Validators.required,
     Validators.email,
   ]);
-  passwordFormControl = new FormControl('', [Validators.required]);
+  passwordFormControl = new FormControl('', [Validators.required, Validators.minLength(8)]);
   numeroEmpleadoFormControl = new FormControl('', [
     Validators.required,
     Validators.maxLength(10),
