@@ -5,9 +5,9 @@
       matInput
       placeholder="Nombre"
       required
-      [formControl]="nombreFormControl"
+      [formControl]="nameEmployeeFormControl"
     />
-    <mat-error *ngIf="nombreFormControl.hasError('required')"
+    <mat-error *ngIf="nameEmployeeFormControl.hasError('required')"
     >Nombre es <strong>Requerido</strong></mat-error
   >
   </mat-form-field>
@@ -16,9 +16,9 @@
       matInput
       placeholder="Apellidos"
       required
-      [formControl]="apellidosFormControl"
+      [formControl]="lastNameFormControl"
     />
-    <mat-error *ngIf="apellidosFormControl.hasError('required')"
+    <mat-error *ngIf="lastNameFormControl.hasError('required')"
       >Apellidos es <strong>Requerido</strong></mat-error
     >
   </mat-form-field>
@@ -27,14 +27,14 @@
     <mat-select
       placeholder="Selecciona el tipo de usuario"
       name="tipo"
-      [formControl]="tipoFormControl"
+      [formControl]="typeFormControl"
       required
     >
       <mat-option value="Gerente">Gerente</mat-option>
       <mat-option value="Validador">Validador</mat-option>
       <mat-option value="Capturador">Capturista</mat-option>
     </mat-select>
-    <mat-error *ngIf="tipoFormControl.hasError('required')"
+    <mat-error *ngIf="typeFormControl.hasError('required')"
       >Tipo es <strong>Requerido</strong></mat-error
     >
   </mat-form-field>
@@ -43,10 +43,10 @@
       type="number"
       matInput
       placeholder="Numero de Empleado"
-      [formControl]="numeroEmpleadoFormControl"
+      [formControl]="numberEmployeeFormControl"
       required
     />
-    <mat-error *ngIf="tipoFormControl.hasError('required')">
+    <mat-error *ngIf="typeFormControl.hasError('required')">
       Numero Empleado <strong>Requerido</strong></mat-error
     >
   </mat-form-field>

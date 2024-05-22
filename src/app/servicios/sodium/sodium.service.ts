@@ -3,11 +3,20 @@ import { environment } from '../../enviroment/enviroment';
 
 import * as sodium from 'libsodium-wrappers';
 
-const SECRET_KEY = 'RXJyb3IgZW4gbGEgY29uZXhpb24gZGlu';
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SodiumService {
+  private secretKey = 'r:PAu>z}|9c[5$Wd6Xk+$XE)[hB>2W7';
 
+  constructor() {}
+
+  encrypt(data: string): string {
+    return CryptoJS.AES.encrypt(data, this.secretKey).toString();
+  }
+
+  decrypt(data: string): string {
+    const bytes = CryptoJS.AES.decrypt(data, this.secretKey);
+    return bytes.toString(CryptoJS.enc.Utf8);
+  }
 }

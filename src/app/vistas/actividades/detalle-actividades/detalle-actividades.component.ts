@@ -25,13 +25,13 @@ export class DetalleActividadesComponent implements AfterViewInit {
   fechaActivity: string = '';
   displayedColumns: string[] = [
     'id',
-    'nombre_actividad',
-    'horas_actividad',
-    'tipo_actividad',
-    'validada',
-    'agregado_por',
-    'validado_por',
-    'creacion',
+    'nameActivity',
+    'hoursActivity',
+    'typeActivity',
+    'validate',
+    'addedBy',
+    'validateBy',
+    'createdAt',
     'actions',
   ];
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
@@ -69,7 +69,6 @@ export class DetalleActividadesComponent implements AfterViewInit {
     this.activitiesService
       .getAcitivitesByUser(this.idUser, this.fechaActivity)
       .subscribe((users: any) => {
-        //this.dataSource = new MatTableDataSource(users.response);
         this.dataSource.data = users.response;
         this.totalItems = users.response.length;
         this.showSpinner = false;
@@ -97,7 +96,7 @@ export class DetalleActividadesComponent implements AfterViewInit {
         isEditMode: false,
         idUser: this.idUser,
         getDayActivity: this.fechaActivity,
-      }, // Modo de registro
+      },
     });
     dialogRef.afterClosed().subscribe((result) => {
       this.showSpinner = true;
@@ -134,7 +133,7 @@ export class DetalleActividadesComponent implements AfterViewInit {
         idUser: this.idUser,
         editedData: dataToEdit,
         getDayActivity: this.fechaActivity,
-      }, // Modo de edición, pasando los datos del elemento a editar
+      },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -162,13 +161,12 @@ export class DetalleActividadesComponent implements AfterViewInit {
           }
         );
       }
-      // Aquí puedes manejar el resultado del modal para el registro
     });
     this.showSpinner = false;
   }
 
   validateProfile(activity: any) {
-    let getProfile = localStorage.getItem('tipo');
+    let getProfile = localStorage.getItem('profile');
 
     if (getProfile != 'Capturador' && activity.validada == null) {
       if (activity.tipo_actividad == 'Indirecta' && getProfile == 'Validador') {
@@ -179,24 +177,22 @@ export class DetalleActividadesComponent implements AfterViewInit {
     return false;
   }
 
-  validarFechaAnterior(fechaStr: string): boolean {
-    const fecha = new Date(fechaStr);
-    if (isNaN(fecha.getTime())) {
-      console.error('La fecha proporcionada es inválida.');
+  validarFechaAnterior(dateStr: string): boolean {
+    const dateInitial = new Date(dateStr);
+    if (isNaN(dateInitial.getTime())) {
       return false;
     }
+    const dateNow = new Date();
+    const dateLastWeek = new Date();
+    dateLastWeek.setDate(dateLastWeek.getDate() - 7);
 
-    const fechaActual = new Date();
-    const fechaHaceUnaSemana = new Date();
-    fechaHaceUnaSemana.setDate(fechaHaceUnaSemana.getDate() - 7);
-
-    return fecha >= fechaHaceUnaSemana && fecha <= fechaActual;
+    return dateInitial >= dateLastWeek && dateInitial <= dateNow;
   }
 
   deleteActivity(id: any) {
     const dialogRef = this.dialog.open(ModalEliminarActComponent, {
       width: '30%',
-      data: {}, // Modo de edición, pasando los datos del elemento a editar
+      data: {},
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -205,15 +201,13 @@ export class DetalleActividadesComponent implements AfterViewInit {
         this.loadData();
         this.showSpinner = false;
       } else if (result == true) {
-        console.log(result);
         this.activitiesService.deleteActivity(id).subscribe(
           (response: any) => {
             if (response.error) {
-              this.alertService.showAlert(response.msg, true); // Mostrar alerta de error
-              console.log(response);
+              this.alertService.showAlert(response.msg, true);
               this.showSpinner = false;
             } else {
-              this.alertService.showAlert(response.msg, false); // Mostrar alerta de éxito
+              this.alertService.showAlert(response.msg, false);
               this.loadData();
               this.showSpinner = false;
             }
@@ -221,14 +215,13 @@ export class DetalleActividadesComponent implements AfterViewInit {
           (error: any) => {
             console.error('Error al llamar al servicio:', error);
             this.showSpinner = false;
-            this.alertService.showAlert('Error al llamar al servicio', true); // Mostrar alerta de error
+            this.alertService.showAlert('Error al llamar al servicio', true);
           }
         );
       } else {
         this.loadData();
         this.showSpinner = false;
       }
-      // Aquí puedes manejar el resultado del modal para el registro
     });
     this.showSpinner = false;
   }
@@ -267,13 +260,12 @@ export class DetalleActividadesComponent implements AfterViewInit {
         this.activitiesService.checkOrReject(result).subscribe(
           (response: any) => {
             if (response.error) {
-              this.alertService.showAlert(response.msg, true); // Mostrar alerta de error
+              this.alertService.showAlert(response.msg, true);
               this.dataSource.data = [];
               this.loadData();
               this.ngOnInit();
             } else {
-              this.alertService.showAlert(response.msg, false); // Mostrar alerta de éxito
-              this.dataSource.data = [];
+              this.alertService.showAlert(response.msg, false);
               this.loadData();
               this.ngOnInit();
             }
@@ -281,7 +273,7 @@ export class DetalleActividadesComponent implements AfterViewInit {
           (error: any) => {
             console.error('Error al llamar al servicio:', error);
             this.showSpinner = false;
-            this.alertService.showAlert('Error al llamar al servicio', true); // Mostrar alerta de error
+            this.alertService.showAlert('Error al llamar al servicio', true);
           }
         );
       }

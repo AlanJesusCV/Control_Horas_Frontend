@@ -19,15 +19,15 @@ export class ModalRegistrarActComponent {
   isEditMode: boolean = false;
   editedData: any;
   idUser: any;
-  nombreFormControl = new FormControl('', [Validators.required]);
-  descripcionFormControl = new FormControl('', [Validators.required]);
-  tipoActividadFormControl = new FormControl('', [Validators.required]);
-  fechaActividadFormControl = new FormControl(new Date(), [
+  nameFormControl = new FormControl('', [Validators.required]);
+  descriptionFormControl = new FormControl('', [Validators.required]);
+  typeActivityFormControl = new FormControl('', [Validators.required]);
+  dateActivityFormControl = new FormControl(new Date(), [
     Validators.required,
   ]);
   maxDate: Date = new Date();
-  horasActividadFormControl = new FormControl('', [Validators.required]);
-  horasActividadOptions: any[] = [];
+  hoursActivityFormControl = new FormControl('', [Validators.required]);
+  hoursActivityOptions: any[] = [];
   dayActivity: any;
   constructor(
     public dialogRef: MatDialogRef<ModalRegistrarActComponent>,
@@ -37,7 +37,7 @@ export class ModalRegistrarActComponent {
     this.editedData = data.editedData || {};
     this.idUser = data.idUser;
     this.dayActivity = data.getDayActivity;
-    this.generarHorasActividadOptions();
+    this.generateHoursForControl();
   }
 
   ngOnInit() {
@@ -52,11 +52,11 @@ export class ModalRegistrarActComponent {
     let dataUser: any;
     dataUser = {
       id: this.editedData.id_actividad,
-      nombre_actividad: this.nombreFormControl.value,
-      descripcion: this.descripcionFormControl.value,
-      tipo_actividad: this.tipoActividadFormControl.value,
+      nombre_actividad: this.nameFormControl.value,
+      descripcion: this.descriptionFormControl.value,
+      tipo_actividad: this.typeActivityFormControl.value,
       fecha_actividad: this.dayActivity,
-      horas_actividad: this.horasActividadFormControl.value,
+      horas_actividad: this.hoursActivityFormControl.value,
       id_usuario_asignado: this.idUser,
     };
     this.dialogRef.close(dataUser);
@@ -64,32 +64,32 @@ export class ModalRegistrarActComponent {
 
   isValidForm(): boolean {
     return !!(
-      this.nombreFormControl.valid &&
-      this.descripcionFormControl.valid &&
-      this.tipoActividadFormControl.valid &&
-      this.horasActividadFormControl.valid
+      this.nameFormControl.valid &&
+      this.descriptionFormControl.valid &&
+      this.typeActivityFormControl.valid &&
+      this.hoursActivityFormControl.valid
     );
   }
 
   loadEditModeData() {
-    this.nombreFormControl.setValue(this.editedData.nombre_actividad);
-    this.descripcionFormControl.setValue(this.editedData.descripcion);
-    this.tipoActividadFormControl.setValue(this.editedData.tipo_actividad);
-    this.fechaActividadFormControl.setValue(this.editedData.fecha_actividad);
-    this.horasActividadFormControl.setValue(this.convertHoursToString(this.editedData.horas_actividad));
+    this.nameFormControl.setValue(this.editedData.nombre_actividad);
+    this.descriptionFormControl.setValue(this.editedData.descripcion);
+    this.typeActivityFormControl.setValue(this.editedData.tipo_actividad);
+    this.dateActivityFormControl.setValue(this.editedData.fecha_actividad);
+    this.hoursActivityFormControl.setValue(this.convertHoursToString(this.editedData.horas_actividad));
     console.log(this.convertHoursToString(this.editedData.horas_actividad));
 
   }
 
-  generarHorasActividadOptions() {
+  generateHoursForControl() {
     for (let i = 1; i <= 9 * 2; i++) {
       const hour = Math.floor(i / 2);
       const minutes = i % 2 === 0 ? '00' : '30';
       const formattedTime = `${hour} hours ${minutes} minutes`;
       const time = `${hour.toString().padStart(2, '0')}:${minutes}`;
-      this.horasActividadOptions.push({ label: time, value: formattedTime });
+      this.hoursActivityOptions.push({ label: time, value: formattedTime });
     }
-    console.log(this.horasActividadOptions);
+    console.log(this.hoursActivityOptions);
 
   }
 

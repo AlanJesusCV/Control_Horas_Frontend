@@ -19,7 +19,7 @@ export class LoginService {
 
   saveSession(token: string, userData: any): void {
     localStorage.setItem('token', token);
-    localStorage.setItem('tipo', userData.tipo);
+    localStorage.setItem('profile', userData.tipo);
     localStorage.setItem('numero_emp', userData.numero_empleado);
     localStorage.setItem('id', userData.id);
     localStorage.setItem('userData', JSON.stringify(userData));
@@ -38,7 +38,7 @@ export class LoginService {
   logout(): void {
     // Limpiar el localStorage al cerrar sesión
     localStorage.removeItem('token');
-    localStorage.removeItem('tipo');
+    localStorage.removeItem('profile');
     localStorage.removeItem('numero_emp');
     localStorage.removeItem('userData');
     this.router.navigate(['/login']);

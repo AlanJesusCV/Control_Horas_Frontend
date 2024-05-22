@@ -17,9 +17,9 @@ export class UsuariosComponent implements  AfterViewInit {
   displayedColumns: string[] = [
     'id',
     'name',
-    'numero_empleado',
+    'nameEmployee',
     'email',
-    'tipo',
+    'type',
     'status',
     'actions',
   ];
@@ -51,7 +51,6 @@ export class UsuariosComponent implements  AfterViewInit {
 
   loadData(): void {
     this.userService.getUsers().subscribe((users: any) => {
-      //this.dataSource = new MatTableDataSource(users.response);
       this.dataSource.data = users.response
       this.totalItems = users.response.length;
       this.showSpinner = false;
@@ -61,12 +60,10 @@ export class UsuariosComponent implements  AfterViewInit {
   openRegisterModal(): void {
     const dialogRef = this.dialog.open(ModalUsuariosComponent, {
       width: '30%',
-      data: { isEditMode: false }, // Modo de registro
+      data: { isEditMode: false },
     });
     dialogRef.afterClosed().subscribe((result) => {
       this.showSpinner = true;
-      console.log(result);
-
       if (result == undefined) {
         this.showSpinner = false;
       } else {
@@ -95,7 +92,7 @@ export class UsuariosComponent implements  AfterViewInit {
   openEditModal(dataToEdit: any): void {
     const dialogRef = this.dialog.open(ModalUsuariosComponent, {
       width: '30%',
-      data: { isEditMode: true, editedData: dataToEdit }, // Modo de edición, pasando los datos del elemento a editar
+      data: { isEditMode: true, editedData: dataToEdit },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -104,15 +101,14 @@ export class UsuariosComponent implements  AfterViewInit {
         this.loadData();
         this.showSpinner = false;
       } else {
-        console.log(result);
         this.userService.editUser(result, result.id).subscribe(
           (response) => {
             if (response.error) {
               this.showSpinner = false;
-              this.alertService.showAlert(response.msg, true); // Mostrar alerta de error
+              this.alertService.showAlert(response.msg, true);
               console.log(response);
             } else {
-              this.alertService.showAlert(response.msg, false); // Mostrar alerta de éxito
+              this.alertService.showAlert(response.msg, false);
               this.loadData();
             }
           },
@@ -123,7 +119,6 @@ export class UsuariosComponent implements  AfterViewInit {
           }
         );
       }
-      // Aquí puedes manejar el resultado del modal para el registro
     });
     this.showSpinner = false;
   }
@@ -145,7 +140,7 @@ export class UsuariosComponent implements  AfterViewInit {
   disableUser(id: any, status: boolean) {
     const dialogRef = this.dialog.open(ModalEstatusUsuariosComponent, {
       width: '30%',
-      data: { isEnable: status, idUser: id }, // Modo de edición, pasando los datos del elemento a editar
+      data: { isEnable: status, idUser: id },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -154,11 +149,11 @@ export class UsuariosComponent implements  AfterViewInit {
         this.userService.disableOrEnableUser(id).subscribe(
           (response: any) => {
             if (response.error) {
-              this.alertService.showAlert(response.msg, true); // Mostrar alerta de error
+              this.alertService.showAlert(response.msg, true);
               console.log(response);
               this.showSpinner = false;
             } else {
-              this.alertService.showAlert(response.msg, false); // Mostrar alerta de éxito
+              this.alertService.showAlert(response.msg, false);
               this.loadData();
               this.showSpinner = false;
             }
@@ -166,14 +161,13 @@ export class UsuariosComponent implements  AfterViewInit {
           (error: any) => {
             console.error('Error al llamar al servicio:', error);
             this.showSpinner = false;
-            this.alertService.showAlert('Error al llamar al servicio', true); // Mostrar alerta de error
+            this.alertService.showAlert('Error al llamar al servicio', true);
           }
         );
       }else{
         this.loadData();
         this.showSpinner = false;
       }
-      // Aquí puedes manejar el resultado del modal para el registro
     });
     this.showSpinner = false;
   }

@@ -15,13 +15,13 @@ export class ModalUsuariosComponent {
     Validators.email,
   ]);
   passwordFormControl = new FormControl('', [Validators.required, Validators.minLength(8)]);
-  numeroEmpleadoFormControl = new FormControl('', [
+  numberEmployeeFormControl = new FormControl('', [
     Validators.required,
     Validators.maxLength(10),
   ]);
-  nombreFormControl = new FormControl('', [Validators.required]);
-  apellidosFormControl = new FormControl('', [Validators.required]);
-  tipoFormControl = new FormControl('', [Validators.required]);
+  nameEmployeeFormControl = new FormControl('', [Validators.required]);
+  lastNameFormControl = new FormControl('', [Validators.required]);
+  typeFormControl = new FormControl('', [Validators.required]);
 
   constructor(
     public dialogRef: MatDialogRef<ModalUsuariosComponent>,
@@ -44,16 +44,16 @@ export class ModalUsuariosComponent {
     if (this.isEditMode) {
       dataUser = {
         id: this.editedData.id,
-        nombre: this.nombreFormControl.value,
-        apellidos: this.apellidosFormControl.value,
-        tipo: this.tipoFormControl.value,
+        nombre: this.nameEmployeeFormControl.value,
+        apellidos: this.lastNameFormControl.value,
+        tipo: this.typeFormControl.value,
       };
     } else {
       dataUser = {
-        nombre: this.nombreFormControl.value,
-        apellidos: this.apellidosFormControl.value,
-        tipo: this.tipoFormControl.value,
-        numero_empleado: this.numeroEmpleadoFormControl.value,
+        nombre: this.nameEmployeeFormControl.value,
+        apellidos: this.lastNameFormControl.value,
+        tipo: this.typeFormControl.value,
+        numero_empleado: this.numberEmployeeFormControl.value,
         email: this.emailFormControl.value,
         password: this.passwordFormControl.value
       };
@@ -71,18 +71,18 @@ export class ModalUsuariosComponent {
     } else {
       return !!(
         this.emailFormControl.valid &&
-        this.apellidosFormControl.valid &&
-        this.nombreFormControl.valid &&
+        this.lastNameFormControl.valid &&
+        this.nameEmployeeFormControl.valid &&
         this.passwordFormControl.valid &&
-        this.tipoFormControl.valid &&
-        this.numeroEmpleadoFormControl.valid
+        this.typeFormControl.valid &&
+        this.numberEmployeeFormControl.valid
       );
     }
   }
 
   loadEditModeData() {
-    this.nombreFormControl.setValue(this.editedData.nombre);
-    this.apellidosFormControl.setValue(this.editedData.apellidos);
-    this.tipoFormControl.setValue(this.editedData.tipo);
+    this.nameEmployeeFormControl.setValue(this.editedData.nombre);
+    this.lastNameFormControl.setValue(this.editedData.apellidos);
+    this.typeFormControl.setValue(this.editedData.tipo);
   }
 }

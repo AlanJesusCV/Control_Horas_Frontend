@@ -51,9 +51,7 @@ export class UsuariosService {
   }
 
   private getToken(): string {
-    // Aquí implementa la lógica para obtener el token de autenticación
     return localStorage.getItem('token')!;
   }
 
-  // Implementa otros métodos HTTP según sea necesario (put, delete, etc.)
 }

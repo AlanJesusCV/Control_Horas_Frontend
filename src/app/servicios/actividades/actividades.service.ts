@@ -22,8 +22,8 @@ export class ActividadesService {
 
   public getActivitiesByFilter(
     id: any,
-    fechaInicio: any,
-    fechaFin: any
+    startDate: any,
+    endDate: any
   ): Observable<any> {
     const headers = this.getHeaders();
     return this.http.get(
@@ -31,14 +31,14 @@ export class ActividadesService {
         '/activity/get-activities-by-period/' +
         id +
         '/' +
-        fechaInicio +
+        startDate +
         '/' +
-        fechaFin,
+        endDate,
       { headers }
     );
   }
 
-  public getAcitivitesByUser(id: any, fechaActividad: any): Observable<any> {
+  public getAcitivitesByUser(id: any, dateActivity: any): Observable<any> {
     const headers = this.getHeaders();
     console.log(headers);
     return this.http.get(
@@ -46,7 +46,7 @@ export class ActividadesService {
         '/activity/get-activities-by-user/' +
         id +
         '/' +
-        fechaActividad,
+        dateActivity,
       { headers }
     );
   }

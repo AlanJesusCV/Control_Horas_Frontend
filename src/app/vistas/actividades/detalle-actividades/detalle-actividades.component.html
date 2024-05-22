@@ -48,28 +48,28 @@
           </td>
         </ng-container>
 
-        <ng-container matColumnDef="nombre_actividad">
+        <ng-container matColumnDef="nameActivity">
           <th mat-header-cell *matHeaderCellDef>Nombre</th>
           <td mat-cell *matCellDef="let activity">
             {{ activity.nombre_actividad }}
           </td>
         </ng-container>
 
-        <ng-container matColumnDef="horas_actividad">
+        <ng-container matColumnDef="hoursActivity">
           <th mat-header-cell *matHeaderCellDef>Horas</th>
           <td mat-cell *matCellDef="let activity">
             {{ activity.horas_actividad }}
           </td>
         </ng-container>
 
-        <ng-container matColumnDef="tipo_actividad">
+        <ng-container matColumnDef="typeActivity">
           <th mat-header-cell *matHeaderCellDef>Tipo</th>
           <td mat-cell *matCellDef="let activity">
             {{ activity.tipo_actividad }}
           </td>
         </ng-container>
 
-        <ng-container matColumnDef="validada">
+        <ng-container matColumnDef="validate">
           <th mat-header-cell *matHeaderCellDef>Estatus</th>
           <td mat-cell *matCellDef="let activity">
             <span *ngIf="activity.validada === true">Validada</span>
@@ -78,21 +78,21 @@
           </td>
         </ng-container>
 
-        <ng-container matColumnDef="agregado_por">
+        <ng-container matColumnDef="addedBy">
           <th mat-header-cell *matHeaderCellDef>Agregado Por</th>
           <td mat-cell *matCellDef="let activity">
             {{ activity.agregado_por }}
           </td>
         </ng-container>
 
-        <ng-container matColumnDef="validado_por" >
+        <ng-container matColumnDef="validateBy" >
           <th mat-header-cell *matHeaderCellDef>Validado Por</th>
           <td mat-cell *matCellDef="let activity" >
             {{ activity.user_numero_empleado == '' ? 'N/A':  activity.user_numero_empleado}}
           </td>
         </ng-container>
 
-        <ng-container matColumnDef="creacion">
+        <ng-container matColumnDef="createdAt">
           <th mat-header-cell *matHeaderCellDef>Fecha de Creación</th>
           <td mat-cell *matCellDef="let activity">{{ activity.created_at | date:'Y-MM-dd' }}</td>
         </ng-container>

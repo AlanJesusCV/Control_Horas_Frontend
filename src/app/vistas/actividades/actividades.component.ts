@@ -35,9 +35,9 @@ export class ActividadesComponent implements AfterViewInit {
   currentPage = 1; // Página actual
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  empleados: any[] = [];
+  employees: any[] = [];
   busquedaControl = new FormControl();
-  empleadosFiltrados: Observable<any[]> = new Observable<any[]>();
+  employeesFilter: Observable<any[]> = new Observable<any[]>();
   getPerfil = localStorage.getItem('tipo');
 
   range = new FormGroup({
@@ -56,10 +56,10 @@ export class ActividadesComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
-    this.userService.getUsersAutoComplete().subscribe((empleados) => {
-      console.log(empleados.response);
+    this.userService.getUsersAutoComplete().subscribe((employees) => {
+      console.log(employees.response);
 
-      this.empleados = empleados.response || []; // Asegúrate de manejar el caso de que no se devuelvan datos
+      this.employees = employees.response || []; // Asegúrate de manejar el caso de que no se devuelvan datos
       this.inicializarAutocompletar();
     });
   }
@@ -157,15 +157,15 @@ export class ActividadesComponent implements AfterViewInit {
   }
 
   private inicializarAutocompletar(): void {
-    this.empleadosFiltrados = this.busquedaControl.valueChanges.pipe(
+    this.employeesFilter = this.busquedaControl.valueChanges.pipe(
       startWith(''),
-      map((value) => this.filtrarEmpleados(value))
+      map((value) => this.filtraremployees(value))
     );
   }
 
-  private filtrarEmpleados(value: string): any[] {
+  private filtraremployees(value: string): any[] {
     const filterValue = value.toLowerCase();
-    return this.empleados.filter((empleado) =>
+    return this.employees.filter((empleado) =>
       empleado.empleado.toLowerCase().includes(filterValue)
     );
   }
