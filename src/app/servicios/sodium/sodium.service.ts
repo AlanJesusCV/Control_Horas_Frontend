@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../enviroment/enviroment';
-
-import * as sodium from 'libsodium-wrappers';
+import * as CryptoJS from 'crypto-js';
 
 @Injectable({
   providedIn: 'root',

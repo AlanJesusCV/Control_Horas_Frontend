@@ -4,7 +4,6 @@ import { LoginComponent } from './vistas/login/login.component';
 import { UsuariosComponent } from './vistas/usuarios/usuarios.component';
 import { AuthGuard } from './guards/guards';
 import { ActividadesComponent } from './vistas/actividades/actividades.component';
-import { ValidarActividadesComponent } from './vistas/validar-actividades/validar-actividades.component';
 import { NotFoundComponent } from './vistas/not-found/not-found.component';
 import { DetalleActividadesComponent } from './vistas/actividades/detalle-actividades/detalle-actividades.component';
 const routes: Routes = [
@@ -14,12 +13,7 @@ const routes: Routes = [
     component: ActividadesComponent,
     canActivate: [AuthGuard],
   },
-  { path: 'actividadesDetalle/:detalle', component: DetalleActividadesComponent, canActivate: [AuthGuard]}, // Ruta para el detalle con parámetro id
-  {
-    path: 'validar-actividades',
-    component: ValidarActividadesComponent,
-    canActivate: [AuthGuard],
-  },
+  { path: 'actividadesDetalle/:detalle', component: DetalleActividadesComponent, canActivate: [AuthGuard]},
   { path: 'usuarios', component: UsuariosComponent, canActivate: [AuthGuard] },
   // Agrega más rutas protegidas aquí
   { path: '', redirectTo: '/login', pathMatch: 'full' }, // Redirige al login por defecto

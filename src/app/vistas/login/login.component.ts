@@ -37,7 +37,6 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       const email = this.loginForm.value.email;
       const password = this.loginForm.value.password;
-
       this.authService.login(email, password).subscribe(
         (response) => {
           if (response.error) {
