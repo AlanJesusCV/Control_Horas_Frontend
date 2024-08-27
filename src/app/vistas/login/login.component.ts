@@ -54,7 +54,7 @@ export class LoginComponent {
         }
       );
     }else{
-      this.alertService.showAlert('Los campos correo electronico y contraseña son requeridos', true);
+      this.alertService.showAlert('Los campos correo electrónico y contraseña son requeridos', true);
     }
   }
 
